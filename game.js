@@ -20,7 +20,7 @@ function getHumanChoice()
 {
     while (true)
     {
-        let choice = prompt("Choose rock, papers, or scissors.");
+        let choice = prompt("Choose rock, paper, or scissors.");
         if (choice.toLowerCase() == "rock" || choice.toLowerCase() == "r" )
         {
             return choice;
@@ -107,7 +107,7 @@ function playGame()
         }
         // we need to reset the variables so we can't use a constant
     }
-    console.log("The result is you won " + playerScore + " times while I won " + compScore + " times.");
+    console.log("The result is you won " + playerScore + " time(s) while I won " + compScore + " time(s).");
     if (playerScore > compScore)
     {
         console.log("You won. Like I care about this luck-based game anyways.");
