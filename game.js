@@ -1,8 +1,3 @@
-console.log("Hello world");
-
-let playerScore = 0;
-let compScore = 0;
-
 function getComputerChoice()
 {
     let choice = Math.floor(Math.random() * 3) + 1;
@@ -44,5 +39,75 @@ function getHumanChoice()
     }
 }
 
-let compChoice = getComputerChoice();
-let playerChoice = getHumanChoice();
+function playRound(player,computer)
+{
+    // first, determine if it is a draw and if so, quit round
+    if (player == computer)
+    {
+        console.log("You both picked " + player + " and draw. No points for either of you.");
+        return "draw";
+    }
+    // otherwise, determine who won
+    if (player == "rock")
+    {
+        if (computer == "scissors")
+        {
+            console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
+            return "player";
+        }
+        else {
+            console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
+            return "comp";
+        }
+    }
+    if (player == "paper")
+    {
+        if (computer == "rock")
+        {
+            console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
+            return "player";
+        }
+        else {
+            console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
+            return "comp";
+        }
+    }
+    if (player == "scissors")
+        {
+            if (computer == "paper")
+            {
+                console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
+                return "player";
+            }
+            else {
+                console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
+                return "comp";
+            }
+        }
+}
+
+function playGame()
+{   
+    const compChoice = getComputerChoice();
+    const playerChoice = getHumanChoice();
+
+    let playerScore = 0;
+    let compScore = 0;
+
+    for (let i = 0; i < 5; i++)
+    {
+        console.log(i);
+        let winner = playRound(playerChoice,compChoice);
+        if (winner == "player")
+        {
+            playerScore += 1;
+        }
+        else if (winner == "comp")
+        {
+            compScore += 1;
+        }
+    }
+    console.log("The result is you won " + playerScore + " times while I won " + compScore + " times.");
+}
+
+playGame();
