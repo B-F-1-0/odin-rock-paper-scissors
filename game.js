@@ -88,16 +88,15 @@ function playRound(player,computer)
 
 function playGame()
 {   
-    const compChoice = getComputerChoice();
-    const playerChoice = getHumanChoice();
-
     let playerScore = 0;
     let compScore = 0;
+    let winner;
 
     for (let i = 0; i < 5; i++)
     {
-        console.log(i);
-        let winner = playRound(playerChoice,compChoice);
+        let compChoice = getComputerChoice();
+        let playerChoice = getHumanChoice();
+        winner = playRound(playerChoice,compChoice);
         if (winner == "player")
         {
             playerScore += 1;
@@ -106,8 +105,20 @@ function playGame()
         {
             compScore += 1;
         }
+        // we need to reset the variables so we can't use a constant
     }
     console.log("The result is you won " + playerScore + " times while I won " + compScore + " times.");
+    if (playerScore > compScore)
+    {
+        console.log("You won. Like I care about this luck-based game anyways.");
+    }
+    else if (playerScore < compScore)
+    {
+        console.log("I won. Like I care about this luck-based game anyways.");
+    }
+    else {
+        console.log("We're evenly matched. Like I care about this luck-based game anyways.")
+    }
 }
 
 playGame();
