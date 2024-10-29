@@ -61,6 +61,10 @@ let compScore = 0;
 
 function playGame(choice)
 {   
+    if (playerScore == 5 || compScore == 5)
+    {
+        return;
+    }
     let winner;
     let winnermessage;
 
@@ -90,6 +94,19 @@ function playGame(choice)
     }
 
     resultsdiv.textContent = "You picked " + playerChoice + " while I picked " + compChoice +". " + winnermessage + " Your Score: " + playerScore + ", AI Score: " + compScore;
+    if (playerScore == 5 || compScore == 5)
+    {
+        const gameovermessage = document.createElement('div');
+        if (playerScore == 5)
+        {
+            gameovermessage.textContent = "Game over. You won, but like I care about this luck-based game. Refresh the page to play again."
+        }
+        else
+        {
+            gameovermessage.textContent = "Game over. Looks like you lost this round, heh. Refresh the page to play again."
+        }
+        resultsdiv.appendChild(gameovermessage);
+    }
 }
 // rock button
 const rockbtn = document.querySelector("#rockbtn");
