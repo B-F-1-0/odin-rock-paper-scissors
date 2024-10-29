@@ -16,35 +16,11 @@ function getComputerChoice()
     return compPick;
 }
 
-function getHumanChoice()
-{
-    while (true)
-    {
-        let choice = prompt("Choose rock, paper, or scissors.");
-        if (choice.toLowerCase() == "rock" || choice.toLowerCase() == "r" )
-        {
-            return choice;
-        }
-        else if (choice.toLowerCase() == "paper" || choice.toLowerCase() == "p" )
-        {
-            return choice;
-        }
-        else if (choice.toLowerCase() == "scissors" || choice.toLowerCase() == "s" )
-        {
-            return choice;
-        }
-        else {
-            alert("I didn't understand that; try again.")
-        }
-    }
-}
-
 function playRound(player,computer)
 {
     // first, determine if it is a draw and if so, quit round
     if (player == computer)
     {
-        console.log("You both picked " + player + " and draw. No points for either of you.");
         return "draw";
     }
     // otherwise, determine who won
@@ -52,11 +28,9 @@ function playRound(player,computer)
     {
         if (computer == "scissors")
         {
-            console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
             return "player";
         }
         else {
-            console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
             return "comp";
         }
     }
@@ -64,11 +38,9 @@ function playRound(player,computer)
     {
         if (computer == "rock")
         {
-            console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
             return "player";
         }
         else {
-            console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
             return "comp";
         }
     }
@@ -76,49 +48,68 @@ function playRound(player,computer)
         {
             if (computer == "paper")
             {
-                console.log("You picked " + player + " and I picked " + computer + ". Have a point, jamblasted.");
                 return "player";
             }
             else {
-                console.log("You picked " + player + " and I picked " + computer + ". Ha I win!");
                 return "comp";
             }
         }
 }
 
-function playGame()
+let playerScore = 0;
+let compScore = 0;
+
+function playGame(choice)
 {   
-    let playerScore = 0;
-    let compScore = 0;
     let winner;
+    let winnermessage;
 
-    for (let i = 0; i < 5; i++)
+    let compChoice = getComputerChoice();
+    let playerChoice = choice;
+    winner = playRound(playerChoice,compChoice);
+    if (winner == "player")
     {
-        let compChoice = getComputerChoice();
-        let playerChoice = getHumanChoice();
-        winner = playRound(playerChoice,compChoice);
-        if (winner == "player")
-        {
-            playerScore += 1;
-        }
-        else if (winner == "comp")
-        {
-            compScore += 1;
-        }
-        // we need to reset the variables so we can't use a constant
+        playerScore += 1;
     }
-    console.log("The result is you won " + playerScore + " time(s) while I won " + compScore + " time(s).");
-    if (playerScore > compScore)
+    else if (winner == "comp")
     {
-        console.log("You won. Like I care about this luck-based game anyways.");
+        compScore += 1;
     }
-    else if (playerScore < compScore)
+
+    switch (winner)
     {
-        console.log("I won. Like I care about this luck-based game anyways.");
+        case "player":
+            winnermessage = "You won the round.";
+            break;
+        case "comp":
+            winnermessage = "I won lol.";
+            break;
+        default:
+            winnermessage = "No points for either of you."
+            break;
     }
-    else {
-        console.log("We're evenly matched. Like I care about this luck-based game anyways.")
-    }
+
+    resultsdiv.textContent = "You picked " + playerChoice + " while I picked " + compChoice +". " + winnermessage + " Your Score: " + playerScore + ", AI Score: " + compScore;
 }
+// rock button
+const rockbtn = document.querySelector("#rockbtn");
+rockbtn.addEventListener("click", () => {
+    playGame("rock");
+});
 
-playGame();
+// paper button
+const paperbtn = document.querySelector("#paperbtn");
+paperbtn.addEventListener("click", () => {
+    playGame("paper");
+});
+
+// scissors button
+const scissorsbtn = document.querySelector("#scissorsbtn");
+scissorsbtn.addEventListener("click", () => {
+    playGame("scissors");
+});
+
+// results div
+const resultsdiv = document.createElement('div');
+resultsdiv.textContent = "Your Score: 0, AI Score: 0";
+results.appendChild(resultsdiv);
